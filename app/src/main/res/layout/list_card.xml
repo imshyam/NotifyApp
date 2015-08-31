@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="3dp">
         <RelativeLayout
+            android:id="@+id/setColorHere"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout

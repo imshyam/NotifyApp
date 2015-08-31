@@ -22,8 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.shyam.listview.R;
 import com.shyam.notifyapp.Model.Story;
-import com.shyam.notifyapp.R;
 
 /**
  * Created by shyam on 2/7/15.
@@ -35,7 +35,7 @@ public class ListAdapter extends BaseAdapter implements View.OnClickListener{
     boolean notifyMe = false;
 
     LinearLayout notifyButton;
-    RelativeLayout notifyBackground;
+    RelativeLayout notifyBackground, setColor;
     ImageView notifyImage;
 
 
@@ -82,9 +82,10 @@ public class ListAdapter extends BaseAdapter implements View.OnClickListener{
 
         notifyButton = (LinearLayout) convertView.findViewById(R.id.notifyClick);
         notifyBackground = (RelativeLayout) convertView.findViewById(R.id.notifyOrNotBackground);
+        setColor = (RelativeLayout) convertView.findViewById(R.id.setColorHere);
         notifyImage = (ImageView) convertView.findViewById(R.id.notifyOrNotImage);
 
-        notifyButton.getChildAt(position).setOnClickListener(this);
+        notifyButton.setOnClickListener(this);
 
         // getting story data for the row
         Story story = storyItems.get(position);

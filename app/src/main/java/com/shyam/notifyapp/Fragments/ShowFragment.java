@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.shyam.notifyapp.R;
+import com.shyam.listview.R;
 
 /**
  * Created by shyam on 29/6/15.

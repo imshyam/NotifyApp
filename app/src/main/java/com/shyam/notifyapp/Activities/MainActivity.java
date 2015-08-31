@@ -5,10 +5,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.app.ActionBar;
 
-import com.parse.Parse;
-import com.parse.ParseInstallation;
+import com.shyam.listview.R;
 import com.shyam.notifyapp.Adapter.TabsPagerAdapter;
-import com.shyam.notifyapp.R;
 import com.shyam.notifyapp.SlidingTab.SlidingTabLayout;
 
 
@@ -24,10 +22,6 @@ public class MainActivity extends FragmentActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Parse
-        Parse.initialize(this, "FthICdP4p9W1gfi6PSvfMciZHST2qhS8XCofGVkx", "jIGtqqyTU83dsypctUihGXHRbXP3tF6U5UzGJbem");
-        ParseInstallation.getCurrentInstallation().saveInBackground();
 
 
         super.onCreate(savedInstanceState);
