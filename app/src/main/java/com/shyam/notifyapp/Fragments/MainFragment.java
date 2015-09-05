@@ -1,6 +1,7 @@
 package com.shyam.notifyapp.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,7 +17,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.rey.material.widget.ProgressView;
 import com.shyam.listview.R;
+import com.shyam.notifyapp.Activities.ArticleView;
 import com.shyam.notifyapp.Adapter.ListAdapter;
 import com.shyam.notifyapp.Constants.Routes;
 import com.shyam.notifyapp.Controller.AppController;
@@ -35,7 +38,9 @@ import java.util.List;
 
 public class MainFragment extends Fragment {
 
-    ProgressDialog progressDialog;
+    public final static String LINK = "com.shyam.notifyapp.LINK";
+    public final static String MESSAGE = "com.shyam.notifyapp.MESSAGE";
+    ProgressView progressView;
     // json array response url
     private String urlTopStories = Routes.base+Routes.top+Routes.pretty;
 
@@ -48,10 +53,11 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView=inflater.inflate(R.layout.fragment_main,container,false);
+        View rootView=inflater.inflate(R.layout.fragment_main, container, false);
 
 
         listView = (ListView) rootView.findViewById(R.id.list);
+        progressView = (ProgressView) rootView.findViewById(R.id.progress);
         listView.setDivider(null);
         listView.setDividerHeight(0);
         adapter = new ListAdapter(getActivity(), storyList);
@@ -62,12 +68,14 @@ public class MainFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Log.e("Clicked to : ", "cl");
+                Story s = (Story) adapter.getItem(position);
+                Log.e("Clicked to : ", s.getLink());
+                Intent intent = new Intent(getActivity(), ArticleView.class);
+                intent.putExtra(LINK, s.getLink());
+                intent.putExtra(MESSAGE, s.getTitle());
+                startActivity(intent);
             }
         });
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setCancelable(false);
         showpDialog();
 
         // Creating volley request obj
@@ -176,14 +184,15 @@ public class MainFragment extends Fragment {
     }
 
     private void showpDialog() {
-        if (!progressDialog.isShowing()) {
-            progressDialog.show();
-        }
+        listView.setVisibility(View.GONE);
+        progressView.setVisibility(View.VISIBLE);
+        progressView.start();
     }
 
     private void hidepDialog() {
-        if (progressDialog.isShowing())
-            progressDialog.dismiss();
+        progressView.stop();
+        listView.setVisibility(View.VISIBLE);
+        progressView.setVisibility(View.GONE);
     }
 
 }

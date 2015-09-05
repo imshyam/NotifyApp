@@ -4,4 +4,11 @@
     <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.DarkActionBar">
     </style>
 
+    <style name="Material.Drawable.CircularProgress">
+        <!-- Customize your theme here. -->
+        <item name="cpd_strokeColor">@color/notify</item>
+        <item name="cpd_rotateDuration">1200</item>
+        <item name="cpd_transformDuration">600</item>
+
+    </style>
 </resources>

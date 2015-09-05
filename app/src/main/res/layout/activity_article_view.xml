@@ -1,13 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.shyam.notifyapp.Activities.ArticleView">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <TextView android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/header"
+        android:translationZ="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:background="#14e09e">
+        <TextView
+            android:id="@+id/title"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show HN: Arrow Hero"
+            android:textStyle="bold"
+            android:textSize="@dimen/abc_text_size_large_material"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_below="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"/>
+
+        <LinearLayout
+            android:id="@+id/fab"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_gravity="bottom|right|end"
+            android:elevation="6dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/header"
+            android:background="@drawable/circular_fab_ripple"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:stateListAnimator="@anim/fab_raise">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_notifications_active_white_48dp"/>
+
+        </LinearLayout>
+    </FrameLayout>
+
 
 </RelativeLayout>

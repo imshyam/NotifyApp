@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,15 +30,12 @@ import com.shyam.notifyapp.Model.Story;
  * Created by shyam on 2/7/15.
  */
 
-public class ListAdapter extends BaseAdapter implements View.OnClickListener{
+public class ListAdapter extends BaseAdapter {
 
 
     boolean notifyMe = false;
 
-    LinearLayout notifyButton;
-    RelativeLayout notifyBackground, setColor;
-    ImageView notifyImage;
-
+    RelativeLayout  setColor;
 
     private Activity activity;
     private LayoutInflater inflater;
@@ -80,12 +78,13 @@ public class ListAdapter extends BaseAdapter implements View.OnClickListener{
         TextView noOfUpvotes = (TextView) convertView.findViewById(R.id.noOfUpvotes);
         TextView noOfComments = (TextView) convertView.findViewById(R.id.noOfComments);
 
-        notifyButton = (LinearLayout) convertView.findViewById(R.id.notifyClick);
-        notifyBackground = (RelativeLayout) convertView.findViewById(R.id.notifyOrNotBackground);
+//        notifyButton = (LinearLayout) convertView.findViewById(R.id.notifyClick);
+//        notifyBackground = (RelativeLayout) convertView.findViewById(R.id.notifyOrNotBackground);
         setColor = (RelativeLayout) convertView.findViewById(R.id.setColorHere);
-        notifyImage = (ImageView) convertView.findViewById(R.id.notifyOrNotImage);
+//        setColor.setBackgroundColor(Color.parseColor("#14e09e"));
+//        notifyImage = (ImageView) convertView.findViewById(R.id.notifyOrNotImage);
 
-        notifyButton.setOnClickListener(this);
+//        notifyButton.setOnClickListener(this);
 
         // getting story data for the row
         Story story = storyItems.get(position);
@@ -163,23 +162,23 @@ public class ListAdapter extends BaseAdapter implements View.OnClickListener{
         return convertView;
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.notifyClick){
-            if(notifyMe){
-                notifyBackground.setBackgroundResource(R.drawable.circular_background);
-                Map<String, Integer> map = new HashMap<String, Integer>();
-                map.put("notification", R.drawable.ic_notification);
-                notifyImage.setImageResource(map.get("notification"));
-                notifyMe = false;
-            }
-            else {
-                notifyBackground.setBackgroundResource(R.drawable.circular_background_checked);
-                Map<String, Integer> map = new HashMap<String, Integer>();
-                map.put("notify", R.drawable.ic_notify);
-                notifyImage.setImageResource(map.get("notify"));
-                notifyMe = true;
-            }
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if(v.getId() == R.id.notifyClick){
+//            if(notifyMe){
+//                notifyBackground.setBackgroundResource(R.drawable.circular_background);
+//                Map<String, Integer> map = new HashMap<String, Integer>();
+//                map.put("notification", R.drawable.ic_notification);
+//                notifyImage.setImageResource(map.get("notification"));
+//                notifyMe = false;
+//            }
+//            else {
+//                notifyBackground.setBackgroundResource(R.drawable.circular_background_checked);
+//                Map<String, Integer> map = new HashMap<String, Integer>();
+//                map.put("notify", R.drawable.ic_notify);
+//                notifyImage.setImageResource(map.get("notify"));
+//                notifyMe = true;
+//            }
+//        }
+//    }
 }

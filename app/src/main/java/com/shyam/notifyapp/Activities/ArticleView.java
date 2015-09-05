@@ -1,19 +1,43 @@
 package com.shyam.notifyapp.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.shyam.listview.R;
+import com.shyam.notifyapp.Fragments.MainFragment;
 
 
 public class ArticleView extends Activity {
+
+    WebView webView;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_view);
+
+        webView = (WebView) findViewById(R.id.webview);
+        webView.setWebViewClient(new WebViewClient());
+        textView = (TextView) findViewById(R.id.title);
+
+        getActionBar().hide();
+
+        Intent intent = getIntent();
+        String link = intent.getStringExtra(MainFragment.LINK);
+        String message = intent.getStringExtra(MainFragment.MESSAGE);
+
+        textView.setText(message);
+        webView.loadUrl(link);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
     }
 
     @Override
@@ -36,5 +60,16 @@ public class ArticleView extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // Check if the key event was the Back button and if there's history
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+            webView.goBack();
+            return true;
+        }
+        // If it wasn't the Back key or there's no web page history, bubble up to the default
+        // system behavior (probably exit the activity)
+        return super.onKeyDown(keyCode, event);
     }
 }
