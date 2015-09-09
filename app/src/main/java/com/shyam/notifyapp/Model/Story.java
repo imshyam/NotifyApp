@@ -6,14 +6,15 @@ package com.shyam.notifyapp.Model;
 
 public class Story {
     private String title, link, username;
-    private int linuxTime, noOfUpVotes, noOfComments;
+    private int id, linuxTime, noOfUpVotes, noOfComments;
     boolean notify;
 
     public Story() {
     }
 
-    public Story(String title, String link, String username, int linuxTime, int noOfUpVotes, int noOfComments,
+    public Story(String title,int id, String link, String username, int linuxTime, int noOfUpVotes, int noOfComments,
                  boolean notify) {
+        this.id  = id;
         this.title = title;
         this.link = link;
         this.username = username;
@@ -21,6 +22,14 @@ public class Story {
         this.noOfUpVotes = noOfUpVotes;
         this.noOfComments = noOfComments;
         this.notify = notify;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public String getTitle() {
@@ -77,5 +86,6 @@ public class Story {
     public void setNotify(boolean notify) {
         this.notify = notify;
     }
+
 
 }

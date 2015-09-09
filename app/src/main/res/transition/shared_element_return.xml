@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="500" android:transitionOrdering="sequential">
+    <transition class="com.shyam.notifyapp.Reveal.RevealTransition"
+        android:transitionVisibilityMode="mode_out">
+        <targets>
+            <target android:targetId="@id/header" />
+        </targets>
+    </transition>
+    <transitionSet>
+        <changeBounds />
+        <changeTransform />
+        <transition class="com.shyam.notifyapp.Reveal.RevealTransition"
+            android:transitionVisibilityMode="mode_in">
+            <targets>
+                <target android:targetName="snapshot" />
+            </targets>
+        </transition>
+    </transitionSet>
+</transitionSet>

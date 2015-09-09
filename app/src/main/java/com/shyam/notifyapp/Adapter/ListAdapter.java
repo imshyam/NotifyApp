@@ -116,6 +116,8 @@ public class ListAdapter extends BaseAdapter {
 
         link.setText(finalUrl);
 
+        Log.e("ID is : ", String.valueOf(story.getId()));
+
         //username
         username.setText(story.getUsername());
 
@@ -158,6 +160,7 @@ public class ListAdapter extends BaseAdapter {
         //noOfComments
         noOfComments.setText(String.valueOf(story.getNoOfComments()));
 
+        convertView.setTransitionName(String.valueOf(story.getId()));
 
         return convertView;
     }

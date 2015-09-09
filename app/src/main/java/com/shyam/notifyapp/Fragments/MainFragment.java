@@ -1,14 +1,26 @@
 package com.shyam.notifyapp.Fragments;
 
-import android.app.ProgressDialog;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.transition.Slide;
+import android.transition.TransitionManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -53,7 +65,7 @@ public class MainFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView=inflater.inflate(R.layout.fragment_main, container, false);
+        final View rootView=inflater.inflate(R.layout.fragment_main, container, false);
 
 
         listView = (ListView) rootView.findViewById(R.id.list);
@@ -64,6 +76,7 @@ public class MainFragment extends Fragment {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -73,12 +86,15 @@ public class MainFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ArticleView.class);
                 intent.putExtra(LINK, s.getLink());
                 intent.putExtra(MESSAGE, s.getTitle());
-                startActivity(intent);
+                ActivityOptionsCompat options = ActivityOptionsCompat
+                        .makeSceneTransitionAnimation(getActivity(), view, "hello");
+                ActivityCompat.startActivity(getActivity(), intent,  options.toBundle());
             }
         });
         showpDialog();
 
         // Creating volley request obj
+        //get Top Stories
 
         JsonArrayRequest storyReq = new JsonArrayRequest(urlTopStories,
                 new Response.Listener<JSONArray>() {
@@ -90,7 +106,7 @@ public class MainFragment extends Fragment {
                         for (int i = 0; i < 15; i++) {
                             try {
 
-                                int id = response.getInt(i);
+                                final int id = response.getInt(i);
                                 topIdList.add(id);
                                 Log.e("Responce is: ", String.valueOf(id));
 //                                story.setTitle(obj.getString("title"));
@@ -118,6 +134,7 @@ public class MainFragment extends Fragment {
                                                 Log.d(TAG + " ", response.toString());
                                                 try {
                                                     Story story = new Story();
+                                                    story.setId(id);
                                                     story.setTitle(response.getString("title"));
                                                     story.setLink(response.getString("url"));
                                                     story.setNoOfUpVotes(Integer.parseInt(response.getString("score")));
@@ -182,7 +199,6 @@ public class MainFragment extends Fragment {
         return rootView;
 
     }
-
     private void showpDialog() {
         listView.setVisibility(View.GONE);
         progressView.setVisibility(View.VISIBLE);
